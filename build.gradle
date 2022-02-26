@@ -13,7 +13,7 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.SR8")
+	set('springCloudVersion', "Hoxton.SR12")
 //	set('springCloudVersion', "2021.0.1")
 }
 
