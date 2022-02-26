@@ -13,7 +13,7 @@ public class MessageListener {
 
     private static final Logger log = LoggerFactory.getLogger(MessageListener.class);
 
-    @SqsListener(value = "${example.sqs.url}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
+    @SqsListener(value = "${sqs.url}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
     public void receiveMessage(String message) {
         log.info("Received message: {}", message);
     }

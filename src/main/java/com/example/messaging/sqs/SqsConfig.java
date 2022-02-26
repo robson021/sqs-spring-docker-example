@@ -1,8 +1,6 @@
 package com.example.messaging.sqs;
 
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQSAsync;
-import com.amazonaws.services.sqs.AmazonSQSAsyncClientBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.aws.messaging.config.QueueMessageHandlerFactory;
@@ -10,7 +8,10 @@ import org.springframework.cloud.aws.messaging.config.SimpleMessageListenerConta
 import org.springframework.cloud.aws.messaging.config.annotation.EnableSqs;
 import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.cloud.aws.messaging.support.destination.DynamicQueueUrlDestinationResolver;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.PayloadMethodArgumentResolver;
 
@@ -22,14 +23,6 @@ import java.util.List;
 public class SqsConfig {
 
     @Bean
-    @Primary
-    public AmazonSQSAsync amazonSQSAsync(){
-        return AmazonSQSAsyncClientBuilder.standard()
-                .withRegion(Regions.DEFAULT_REGION)
-                .build();
-    }
-
-    @Bean
     public MappingJackson2MessageConverter mappingJackson2MessageConverter() {
         var messageConverter = new MappingJackson2MessageConverter();
         messageConverter.setStrictContentTypeMatch(false);
@@ -38,7 +31,7 @@ public class SqsConfig {
     }
 
     @Bean
-    public DynamicQueueUrlDestinationResolver destinationResolver(AmazonSQSAsync amazonSQSAsync, @Value("${example.sqs.url}") String url) {
+    public DynamicQueueUrlDestinationResolver destinationResolver(AmazonSQSAsync amazonSQSAsync, @Value("${sqs.url}") String url) {
         var destinationResolver = new DynamicQueueUrlDestinationResolver(amazonSQSAsync);
         destinationResolver.resolveDestination(url);
         destinationResolver.setAutoCreate(true);
@@ -69,6 +62,5 @@ public class SqsConfig {
         factory.setWaitTimeOut(10);
         return factory;
     }
-
 
 }

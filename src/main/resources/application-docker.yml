@@ -1,1 +1,9 @@
-example.sqs.url: http://localhost:9324/queue/default
+sqs.url: http://localhost:9324/queue/default
+cloud:
+  aws:
+    region:
+      static: eu-central-1
+      auto: false
+    credentials:
+      access-key: notValidSecret
+      secret-key: notValidKey
