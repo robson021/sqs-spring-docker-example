@@ -12,11 +12,10 @@ docker-compose up -d
 ./gradlew clean bootRun
 ```
 
-Run with scripts:
+Or run with script:
 
 ```bash
-./scripts/restart-queue.sh
-./gradlew clean bootRun
+./scripts/reboot-app.sh
 ```
 
 Publish messages with AWS CLI:
