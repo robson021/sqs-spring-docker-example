@@ -28,18 +28,19 @@ public class SqsConfig {
     public AmazonSQSAsync amazonSQS(
             @Value("${cloud.aws.credentials.access-key}") String accessKey,
             @Value("${cloud.aws.credentials.secret-key}") String secretKey,
+            @Value("${cloud.aws.region.static}") String region,
             @Value("${sqs.url}") String endpoint) {
         return AmazonSQSAsyncClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
-                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, "eu-central-1"))
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endpoint, region))
                 .build();
     }
 
     @Bean
-    public MappingJackson2MessageConverter mappingJackson2MessageConverter() {
+    public MappingJackson2MessageConverter mappingJackson2MessageConverter(ObjectMapper objectMapper) {
         var messageConverter = new MappingJackson2MessageConverter();
         messageConverter.setStrictContentTypeMatch(false);
-        messageConverter.setObjectMapper(new ObjectMapper());
+        messageConverter.setObjectMapper(objectMapper);
         return messageConverter;
     }
 

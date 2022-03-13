@@ -14,7 +14,7 @@ public class MessageListener {
     private static final Logger log = LoggerFactory.getLogger(MessageListener.class);
 
     @SqsListener(value = "${sqs.url}", deletionPolicy = SqsMessageDeletionPolicy.ON_SUCCESS)
-    public void receiveMessage(String message) {
+    public void receiveMessage(GpsData message) {
         log.info("Received message: {}", message);
     }
 
