@@ -15,3 +15,5 @@ spring:
       - org.springframework.cloud.aws.autoconfigure.messaging.MessagingAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.jdbc.AmazonRdsDatabaseAutoConfiguration
       - org.springframework.cloud.aws.autoconfigure.metrics.CloudWatchExportAutoConfiguration
+  main:
+    allow-bean-definition-overriding: true
